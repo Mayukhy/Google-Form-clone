@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.card{
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.card:hover{
+    border: solid rgb(110, 26, 141) 2px;
+    transform: scale(1.06);
+}
+.del{
+    cursor: pointer;
+    transition: all 0.3s; 
+}
+.del:hover{
+    border: solid rgb(110, 26, 141) 2px;
+}
+::-webkit-scrollbar{
+    display: none;
+}
