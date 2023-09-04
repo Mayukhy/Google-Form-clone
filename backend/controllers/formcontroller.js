@@ -2,10 +2,6 @@
 import formData from '../models/formmodel.js'
 import mongoose from 'mongoose'
 export const getForm =async(req,res)=>{
-      // pagination
-      // let page = Number(req.query.page) || 1;
-      // let limit = Number(req.query.limit) || 10;
-      // let skip = (page-1)*limit;
     try {
       const formdata = await formData.find()
       res.json(formdata)
@@ -20,9 +16,9 @@ export const getsingleForm = async(req,res)=>{
 }
 export const creatForm= async(req,res)=>{
 const form = req.body  //data comming from frontend
-const newForm = formData(form) //pushing the new data to PostMemories array
+const newForm = formData(form) //pushing the new data to form array
 try {
-  await newForm.save() // saving the data to PostMemories array
+  await newForm.save() // saving the data to form array
   res.json(newForm)  
 } catch (error) {
     

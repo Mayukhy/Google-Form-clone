@@ -15,8 +15,13 @@ export default function SuccessSub() {
         <p className=' text-lg  text-fuchsia-900 font-medium'>
         Your Response has been Recorded
         </p>
-        <p onClick={()=>navigate(-1)} className=' text-md text-blue-600 font-normal'>
-        Give another response
+        <p onClick={()=>{
+          navigate(-1)
+          setTimeout(() => {
+            window.location.reload() 
+          }, 100);
+         }} className=' text-md text-blue-600 font-normal'>
+        Give another response if option available
         </p>
     </CardContent>
     </Card>

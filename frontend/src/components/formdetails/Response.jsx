@@ -14,8 +14,11 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CircularProgress from '@mui/joy/CircularProgress';
 
-export default function Response({userinfo,id}) {
+import McqRes from './mcq/McqRes';
 
+
+export default function Response({userinfo,id}) {
+  const baseURL = 'http://localhost:5000'
     const [form,setForm] = useState([])
     const dispatch = useDispatch()
     const userResponses = useSelector((state)=>state?.responses)
@@ -29,7 +32,7 @@ export default function Response({userinfo,id}) {
       },[])
     useEffect(()=>{
      const fetchdata= async()=>{
-    await axios.get(`http://localhost:5000/form/${id}`)
+    await axios.get(`${baseURL}/form/${id}`)
      .then(({data})=>
     {
        setForm(data)
@@ -201,6 +204,9 @@ console.log("Only user",filteredRes)
             />}
     </CardContent>
     </Card>}
+    <div>
+    <McqRes  form={form} user={res?.userId} userinfo={userinfo} id={id}/>
+    </div>
     <br />
           </List>
         </AccordionDetails>

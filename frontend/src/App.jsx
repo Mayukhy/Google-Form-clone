@@ -7,6 +7,7 @@ import Formdetails from './components/formdetails/Formdetails';
 import SuccessSub from './components/SuccessSub';
 import Error from './components/Error';
 import Searchfeed from './components/search/Searchfeed';
+import McqForm from './components/McqForm';
 
 function App() {
   //google auth users
@@ -22,6 +23,7 @@ const [searchturm,setSearchterm] = useState(null)
     <Routes>
     <Route path='/' element={<Home setFormdata={setFormdata} userinfo={userinfo} currentId={currentId} setCurrentId={setCurrentId} />}/>
     <Route path='/form/:id' element={<Formdetails setFormdata={setFormdata} userinfo={userinfo} currentId={currentId} setCurrentId={setCurrentId} />}/>
+    <Route path='/form/mcq/:formid' element={<McqForm setFormdata={setFormdata} userinfo={userinfo} currentId={currentId} setCurrentId={setCurrentId} />}/>
     <Route path='/form' element={<Form userinfo={userinfo} currentId={currentId} setCurrentId={setCurrentId} formdata={formdata} setFormdata={setFormdata} documentarray={documentarray} setDocumentarray={setDocumentarray}/>}/>
     <Route path='/search/:searchTerm' element={<Searchfeed userinfo={userinfo} currentId={currentId} setCurrentId={setCurrentId} formdata={formdata} setFormdata={setFormdata} />}/>
     <Route path='/success/:formtitle' element={<SuccessSub/>}/>

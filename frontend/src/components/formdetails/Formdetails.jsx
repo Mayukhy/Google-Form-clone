@@ -54,6 +54,16 @@ const filteredRes =userResponses?.length >0 && userResponses?.filter((res)=>res?
 </Button>
 
       </Box>}
+      {userinfo  && !(form?.userId === userinfo?.sub || form?._id === userResponses?.formId) &&<Button sx={{position:'absolute',right:0,mt:'4px',mr:2}} variant="contained" color="secondary">
+<EmailShareButton style={{display:'flex',gap:8}}
+          url={URL}
+          subject="Google Form"
+          body={'Fill up the form'}
+          className="Demo__some-network__share-button">
+      <p className=' text-sm text-gray-100 mt-1 md:flex hidden '>Share With Mail</p>
+          <ForwardToInboxIcon  />
+        </EmailShareButton>
+</Button>}
       
 {  value === 'Questions' ?
 (<Formitem userinfo={userinfo} id={id} form={form}/>):

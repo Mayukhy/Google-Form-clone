@@ -78,7 +78,7 @@ export default function Home({currentId,setCurrentId,userinfo,setFormdata}) {
             { forms?.length > 0 && userForms?.map((item,id)=>(
                 <>
                       { item?.title !==''&& item?.name !==''&&
-                      <Card className='card animate-[slideup_0.5s] md:w-[240px] w-full md:h-[300px] h-auto' key={id} sx={{backgroundColor:`${colorArray[id]}`,minHeight:'300px',position:'relative',p:0,m:1}}>
+                      <Card className='card animate-[slideup_0.5s] md:w-[240px] w-[350px] md:h-[300px] h-auto' key={id} sx={{backgroundColor:`${colorArray[id]}`,minHeight:'300px',position:'relative',p:0,m:1}}>
                         <div onClick={()=>navigate(`/form/${item?._id}`)} className=' px-7 py-4 rounded-sm h-[100%]'><img src={template} className='w-full' alt="" />
                         
                         <div className=' flex flex-col gap-3 mt-4'>

@@ -192,19 +192,19 @@ const userinfo =localStorage.getItem('user') !== 'undefined' ? JSON.parse(localS
           >
             <MenuIcon />
           </IconButton>
-          <img onClick={()=>navigate('/')} className='  transition-all duration-200 hover:animate-[spin_0.9s] cursor-pointer' src="https://www.gstatic.com/images/branding/product/1x/forms_2020q4_48dp.png" alt="" />
-          <p className=' w-[70px] md:flex hidden truncate font-bold text-fuchsia-950 text-2xl cursor-pointer mt-[6px]'>
+          <img  onClick={()=>navigate('/')} className=' ml-[-22px] transition-all duration-200 hover:animate-[spin_0.9s] cursor-pointer' src="https://www.gstatic.com/images/branding/product/1x/forms_2020q4_48dp.png" alt="" />
+          <p className=' w-[70px] truncate md:inline-block hidden font-bold text-fuchsia-950 text-2xl cursor-pointer mt-[6px]'>
             Forms
           </p>
           </div>
           <form  onSubmit={()=>navigate(`/search/${searchTerm}`)} >
-          <Search sx={{borderRadius:'20px'}} className=' bg-slate-200 rounded-md '>
-            <SearchIconWrapper  className=' bg-slate-200 text-gray-900 rounded-md '>
+          <Search sx={{borderRadius:'20px'}} className=' bg-slate-200 rounded-md  '>
+            <SearchIconWrapper  className=' bg-slate-200 text-gray-900 rounded-md md:pl-0 pl-2 '>
               <SearchIcon className=' text-slate-950 z-50' />
             </SearchIconWrapper>
             <StyledInputBase
            
-             onChange={(e)=>setSearchterm(e.target.value)} sx={{color:'black',width:{lg:'550px',md:'400px',sm:'380px',xs:'100%'}}} className=' bg-slate-200 rounded-md shadow-md placeholder:text-slate-900 text-indigo-950'
+             onChange={(e)=>setSearchterm(e.target.value)} sx={{color:'black',width:{lg:'550px',md:'450px',sm:'430px',xs:'100%'}}} className=' bg-slate-200 rounded-md shadow-md placeholder:text-slate-900 text-indigo-950'
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
             />
