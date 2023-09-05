@@ -18,7 +18,7 @@ import McqRes from './mcq/McqRes';
 
 
 export default function Response({userinfo,id}) {
-  const baseURL = 'http://localhost:5000'
+  const baseURL = 'https://google-form-clonemayukh.onrender.com'
     const [form,setForm] = useState([])
     const dispatch = useDispatch()
     const userResponses = useSelector((state)=>state?.responses)
@@ -113,7 +113,7 @@ console.log("Only user",filteredRes)
 
             <Card className='border-t-[11px] border-t-[#8f38ba] transition-all duration-200 hover:scale-105 cursor-pointer' sx={{width:{lg:'600px',md:'500px',sm:'400px',xs:'100%'},py:2,transition:'all 0.3s',borderRadius:'10px'}}>
     <CardContent>
-        <p className=' text-4xl font-medium'>
+        <p className=' md:text-4xl text-3xl font-medium'>
         {form?.title}
         </p>
     </CardContent>
@@ -183,7 +183,7 @@ console.log("Only user",filteredRes)
         </p>
 
 <p className=' text-fuchsia-900 text-base flex gap-2'>
-<a className=' hover:underline flex gap-1' href={res?.filepdf} target="_blank"  >
+<a className=' hover:underline flex gap-1' href={res?.filepdf} target='_blank'  >
   <img className=' w-[50px] h-[50px]' src="https://png.pngtree.com/png-clipart/20220612/original/pngtree-pdf-file-icon-png-png-image_7965915.png" alt="" />
  <p className=' mt-3'>Click Here To open The file</p></a> 
 </p>
@@ -204,9 +204,9 @@ console.log("Only user",filteredRes)
             />}
     </CardContent>
     </Card>}
-    <div>
+    <Box sx={{width:{lg:'600px',md:'500px',sm:'400px',xs:'100%'}}}>
     <McqRes  form={form} user={res?.userId} userinfo={userinfo} id={id}/>
-    </div>
+    </Box>
     <br />
           </List>
         </AccordionDetails>

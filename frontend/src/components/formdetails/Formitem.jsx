@@ -12,6 +12,7 @@ import axios from 'axios';
 
 
 export default function Formitem({userinfo,id,form}) {
+    const baseURL = 'https://google-form-clonemayukh.onrender.com'
     const navigate = useNavigate()
     //for storing the mcq response
     const [allq,setAllq] = useState([])
@@ -26,39 +27,19 @@ export default function Formitem({userinfo,id,form}) {
     
     useEffect(()=>{
         const fetchmcq= async()=>{
-            await axios.get('http://localhost:5000/mulq')
+            await axios.get(`${baseURL}/mulq`)
             .then(({data})=>setAllque(data))
             }
             fetchmcq()
     },[])
     useEffect(()=>{
     const fetchmcqres= async()=>{
-    await axios.get('http://localhost:5000/mcqres')
+    await axios.get(`${baseURL}/mcqres`)
     .then(({data})=>setAllq(data))
     }
     fetchmcqres()
     },[])
 
-    // for preventing accidental reload
-    // useEffect(()=>{
-    //     const unloadCallback = (event) => {      
-    //         const e = event || window.event;
-    //         //console.log(e)
-    //         e.preventDefault();
-    //         if (e) {
-    //           e.returnValue = ''
-    //         }
-    //         return '';
-              
-    //     };
-        
-    //     window.addEventListener("beforeunload", unloadCallback);
-    //     return () => {
-    //       //cleanup function
-    //       window.removeEventListener("beforeunload", unloadCallback);
-    //     }
-        
-    //   },[])
 
     const submitform=()=>{
         if (userinfo) {
@@ -108,7 +89,7 @@ export default function Formitem({userinfo,id,form}) {
         
         </Card>
        
-{ allreadyResponed !== qlength && <Card className='border-t-[11px] border-t-[#8f38ba] transition-all duration-200 hover:scale-105 cursor-pointer' sx={{width:{lg:'700px',md:'600px',sm:'500px',xs:'100%'},py:2,transition:'all 0.3s',borderRadius:'10px'}}>
+{ allreadyResponed !== qlength && qlength >0  && <Card className='border-t-[11px] border-t-[#8f38ba] transition-all duration-200 hover:scale-105 cursor-pointer' sx={{width:{lg:'700px',md:'600px',sm:'500px',xs:'100%'},py:2,transition:'all 0.3s',borderRadius:'10px'}}>
         <CardContent>
             <p className=' text-4xl font-medium'>
             {form?.title}
@@ -125,7 +106,7 @@ export default function Formitem({userinfo,id,form}) {
       
     <form onSubmit={submitform} className=' flex flex-col gap-5 w-full items-center justify-center ' action="">
         {/* for when mcqs are present in the form */}
-{ allreadyResponed !== qlength  &&  <div className=' flex flex-col gap-5 w-full items-center justify-center'>
+{ allreadyResponed !== qlength && qlength>0  &&  <div className=' flex flex-col gap-5 w-full items-center justify-center'>
     <Card className=' border-l-[5px] border-l-blue-400 transition-all duration-200 hover:scale-105 cursor-pointer' sx={{width:{lg:'700px',md:'600px',sm:'500px',xs:'100%'},py:2,transition:'all 0.3s',borderRadius:'10px'}}>
         <CardContent className=' flex flex-col gap-3'>
         <p className=' text-lg font-semibold  text-indigo-900'>
@@ -371,7 +352,7 @@ export default function Formitem({userinfo,id,form}) {
        </Card>}
        </div>
        }
-        {allreadyResponed !==qlength  && <Button type='submit' onClick={()=>{
+        {allreadyResponed !==qlength && qlength>0  && <Button type='submit' onClick={()=>{
             if (userinfo) {
                 setisloggedin(true)
             }

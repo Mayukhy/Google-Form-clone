@@ -9,7 +9,7 @@ export default function Mcqdetails({id,radioquestions,setRadioquestions}) {
 
     useEffect(()=>{
     const fetchdata = async()=>{
-    await axios.get('http://localhost:5000/mulq')
+    await axios.get('https://google-form-clonemayukh.onrender.com/mulq')
     .then(({data})=>{
         setRadioquestions(data)
       })
@@ -22,7 +22,7 @@ export default function Mcqdetails({id,radioquestions,setRadioquestions}) {
     console.log(filteredq)
   return (
     <div className='flex flex-col gap-5 w-full items-center justify-center'>
-                    { radioquestions?.length && filteredq?.map((qus,idx)=>(
+                    { radioquestions?.length > 0  && filteredq?.map((qus,idx)=>(
                       <SingleMcq setMcqresponse={setMcqresponse} id={id} qus={qus} idx={idx}/>
 
         ))}

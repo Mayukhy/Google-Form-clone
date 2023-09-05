@@ -1,7 +1,7 @@
 import axios from 'axios'
-const url = 'http://localhost:5000/form'
-const url1 = 'http://localhost:5000/res'
-const url2 = 'http://localhost:5000/mulq'
+const url = 'https://google-form-clonemayukh.onrender.com/form'
+const url1 = 'https://google-form-clonemayukh.onrender.com/res'
+const url2 = 'https://google-form-clonemayukh.onrender.com/mulq'
 //for owners
 export const fetchForm =()=> axios.get(url)
 export const getSingleform = (id)=> axios.get(`${url}/${id}`)

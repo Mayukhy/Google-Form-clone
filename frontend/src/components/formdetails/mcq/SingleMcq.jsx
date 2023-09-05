@@ -4,16 +4,18 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-import {  Card, CardContent, Button } from '@mui/material'
+import {  Card, CardContent, Button,Box } from '@mui/material'
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import axios from 'axios';
 import Alert from '@mui/material/Alert';
+import CircularProgress from '@mui/joy/CircularProgress';
 
 export default function SingleMcq({qus,idx,id,setMcqresponse}) {
    
-  const baseURL = 'http://localhost:5000'
+  const baseURL = 'https://google-form-clonemayukh.onrender.com'
   const[mcqdata,setMcqdata] = useState([])
     const userinfo =localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear()
+    const [isloading,setIsloading] = useState(false)
     const [mcqRes,setMcqres] = useState({
     questionText:`${qus?.questionText}`,
      optionText1:`${qus?.optionText1}`,
@@ -26,12 +28,16 @@ export default function SingleMcq({qus,idx,id,setMcqresponse}) {
      formId:`${id}`
     })
     useEffect(()=>{
+      setIsloading(true)
     const fetchRes = async()=>{
         await axios.get(`${baseURL}/mcqres`)
-        .then(({data})=>setMcqdata(data))
+        .then(({data})=>{
+          setMcqdata(data)
+          setIsloading(false)
+        })
     }
     fetchRes()
-    })
+    },[])
     const [isLoggedin,setIsloggedin] = useState(false)
     const [field,setField] = useState(false)
     const alreadyanswered = (mcqdata?.filter((ans)=>ans?.userId ===userinfo?.sub && ans?.questionText ===mcqRes?.questionText)).length
@@ -79,6 +85,7 @@ export default function SingleMcq({qus,idx,id,setMcqresponse}) {
     <div className='flex flex-col gap-5 w-full items-center justify-center'>
        {field && <Alert className=' mx-auto flex justify-center items-center' sx={{ width: { lg: '700px', md: '600px', sm: '500px', xs: '100%' },mb:3 }} severity="warning">Answer First</Alert>}
        {ansed && <Alert className=' mx-auto flex justify-center items-center' sx={{ width: { lg: '700px', md: '600px', sm: '500px', xs: '100%' },mb:3 }} severity="success">Already Saved</Alert>}
+       {isloading && <Box sx={{ display: 'flex', gap: 2, justifyContent:'center',mt:10, alignItems: 'center', flexWrap: 'wrap' }}><CircularProgress size="lg" /> </Box>}
       {isLoggedin && <Alert className=' mx-auto flex justify-center items-center' sx={{ background: '#ffc9b3', width: { lg: '700px', md: '600px', sm: '500px', xs: '100%' },mb:3 }} severity="error">Login First</Alert>}
               <Card key={idx} className=' mb-4 border-l-[5px] border-l-blue-400 transition-all duration-200 hover:scale-100 cursor-pointer' sx={{ width: { lg: '700px', md: '600px', sm: '500px', xs: '100%' }, py: 2, transition: 'all 0.3s', borderRadius: '10px' }}>
         <p className=' text-2xl ml-4 font-bold'>{idx+1+'.'}</p>

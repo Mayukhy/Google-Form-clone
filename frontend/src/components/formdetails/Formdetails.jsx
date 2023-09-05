@@ -26,7 +26,7 @@ const filteredRes =userResponses?.length >0 && userResponses?.filter((res)=>res?
     setValue(newValue);
     
   };
-  const URL =`http://localhost:5173/form/${id}`
+  const URL =`https://googleformclonemayukh.netlify.app/form/${id}`
   return (
    <div className='bg-violet-100 min-h-screen' sx={{ width: '100%',display:'flex',justifyContent:'center',flexDirection:'column',alignItems:'center' }}>
 

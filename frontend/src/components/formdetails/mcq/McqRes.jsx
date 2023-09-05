@@ -10,7 +10,7 @@ import {  Card, CardContent } from '@mui/material'
 // import { deleteQ } from '../../redux/action/multiQ';
 import axios from 'axios';
 export default function McqRes({id,user}) {
-  const baseURL = 'http://localhost:5000'
+  const baseURL = 'https://google-form-clonemayukh.onrender.com'
     const [radioquestions,setRadioquestions] = useState([])
     useEffect(()=>{
     const fetchdata = async()=>{

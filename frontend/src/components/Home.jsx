@@ -45,7 +45,7 @@ export default function Home({currentId,setCurrentId,userinfo,setFormdata}) {
         {!forms?.length && userinfo && 
         <Box sx={{ display: 'flex', gap: 2, justifyContent:'center',mt:10, alignItems: 'center', flexWrap: 'wrap' }}><CircularProgress size="lg" /> </Box> }
 
-        {userForms?.length ===0 && 
+        {userForms?.length ===0 && userinfo &&
         <div className=' flex flex-col mt-8 gap-3 lg:px-10 px-4 justify-center items-center py-3'>
            <h1 className=' text-2xl font-semibold' >You Have not Created any forms yet</h1>
           <img  className=' animate-slideup w-[400px]'  src="https://img.freepik.com/premium-vector/no-data-concept-illustration_86047-486.jpg" alt="" /></div>}
@@ -74,7 +74,7 @@ export default function Home({currentId,setCurrentId,userinfo,setFormdata}) {
 <div ref={scrollRef} className=' flex md:w-[90%] lg:[90%] xl:w-full relative w-full m-auto md:overflow-x-scroll lg:overflow-x-scroll xl:overflow-hidden overflow-hidden  scroll-smooth'>
 
 
-            <div className='flex md:gap-3 gap-9 lg:px-[20px] xl:px-[80px] md:px-[10px] px-16 lg:justify-start justify-center py-3 md:flex-nowrap lg:flex-nowrap xl:flex-wrap flex-wrap'>
+            <div className='flex  md:gap-3 gap-9 lg:px-[10px] xl:px-[80px] md:px-[10px] px-5 lg:justify-start justify-center py-3 md:flex-nowrap lg:flex-nowrap xl:flex-wrap flex-wrap'>
             { forms?.length > 0 && userForms?.map((item,id)=>(
                 <>
                       { item?.title !==''&& item?.name !==''&&

@@ -178,7 +178,7 @@ const userinfo =localStorage.getItem('user') !== 'undefined' ? JSON.parse(localS
   );
 
   return (
-    <GoogleOAuthProvider  clientId='Your client id here'>
+    <GoogleOAuthProvider  clientId='142465440111-idtng7ma1ievh6qj2o2t0msj5kh4p6b2.apps.googleusercontent.com'>
     <Box  sx={{ flexGrow: 1 }}>
       <AppBar sx={{background:'white',borderBottom:'2px solid #d7d4d9'}} position="static">
         <Toolbar className=' flex justify-between'>
