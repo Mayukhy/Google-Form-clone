@@ -26,6 +26,5 @@ app.get('/',(req,res)=>{
 const PORT = 5000;
 
 //for connecting mongodb database with the app
-const URL = 'mongodb+srv://dasmayukh2000:936eIP2SWazsX5Pp@cluster0.93aiybh.mongodb.net/?retryWrites=true&w=majority'
 mongoose.connect(process.env.CONNECTION_URL)
 .then(()=>app.listen(PORT,()=>console.log('server is running at http://localhost:5000')))
