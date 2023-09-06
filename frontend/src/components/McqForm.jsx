@@ -8,11 +8,17 @@ import { creatQ, deleteQ} from '../redux/action/multiQ';
 import Alert from '@mui/material/Alert';
 import { Card, CardContent, TextField, Button,Tooltip, IconButton,Box } from '@mui/material'
 import { useNavigate, useParams } from 'react-router-dom';
-import { useDispatch} from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
 import axios from 'axios';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import CircularProgress from '@mui/joy/CircularProgress';
+import { getForms } from '../redux/action/forms';
 export default function McqForm({ userinfo, currentId }) {
+  useEffect(()=>{
+  dispatch(getForms())
+  },[])
+  const forms = useSelector((state)=>state.forms)
+  console.log("forms Are",forms)
   const btnref = useRef(null)
   const baseURL = 'https://google-form-clonemayukh.onrender.com'
   const { formid } = useParams()
@@ -116,16 +122,6 @@ export default function McqForm({ userinfo, currentId }) {
 
               </RadioGroup>
             </FormControl>
-            <Tooltip  title="Remove Question">
-              <IconButton sx={{position:'absolute',bottom:0,right:0,mb:1,mr:1}}  aria-label="" className=' h-[48px] w-[48px]'
-                onClick={() => {
-                  dispatch(deleteQ(qus?._id))
-                  window.location.reload()
-                }}>
-                <DeleteForeverIcon className=' text-red-600' />
-              </IconButton>
-            </Tooltip>
-
           </CardContent>
         </Card>
 
@@ -151,7 +147,7 @@ export default function McqForm({ userinfo, currentId }) {
 
               </RadioGroup>
             </FormControl>
-            <Tooltip  title="Remove Question">
+{    formid === forms[mcqarray?.length -1]?._id  && <Tooltip  title="Remove Question">
               <IconButton sx={{position:'absolute',bottom:0,right:0,mb:1,mr:1}}  aria-label="" className=' h-[48px] w-[48px]'
                 onClick={() => {
                 dispatch(deleteQ(qus?._id))
@@ -159,7 +155,7 @@ export default function McqForm({ userinfo, currentId }) {
                 }}>
                 <DeleteForeverIcon className=' text-red-600' />
               </IconButton>
-            </Tooltip>
+            </Tooltip>}
           </CardContent>
         </Card>
 

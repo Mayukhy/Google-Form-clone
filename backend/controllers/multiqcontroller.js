@@ -17,7 +17,7 @@ try {
   await newQ.save() // saving the data to PostMemories array
   res.json(newQ)  
 } catch (error) {
-    
+   console.log(error) 
 }
 }
 
