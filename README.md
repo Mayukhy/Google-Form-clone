@@ -1,5 +1,26 @@
 # Google-Form-clone
 
+Features: 
+1. Allowing users to create forms after authenticating their account. (google auth)
+
+2. Allowing users to complete forms.
+   
+3. Allowing the form owner to share the form to specific emails. 
+
+4. Allowing form owners to visualize responses.
+   
+5. Allowing users to submit other media like images, URLs, and files to forms. 
+
+6. An admin dashboard for form owners to manage their current forms.
+
+# Note
+1. If the application is launched first time or in an intarval of maximum 30 minutes then it take some time (max 30 sec) to load the contents, so please keep patience.
+2. When the form is shared to a specific email of a specific user then the user should check the mail spam folder bacause it may sometime the message can be stored in the spam folder.
+
+# Technologies used
+React Js, Express Js, Material UI, Tailwind Css & Mongodb
+
+
 
 # SS
 ![Your Form - Google Chrome 9_4_2023 10_23_35 PM](https://github.com/Mayukhy/Google-Form-clone/assets/107027766/04e28ebd-3dcd-4a9c-8131-ed0894ed4331)
