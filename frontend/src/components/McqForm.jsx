@@ -147,7 +147,7 @@ export default function McqForm({ userinfo, currentId }) {
 
               </RadioGroup>
             </FormControl>
-{    formid === forms[mcqarray?.length -1]?._id  && <Tooltip  title="Remove Question">
+{    formid === forms[forms?.length -1]?._id  && <Tooltip  title="Remove Question">
               <IconButton sx={{position:'absolute',bottom:0,right:0,mb:1,mr:1}}  aria-label="" className=' h-[48px] w-[48px]'
                 onClick={() => {
                 dispatch(deleteQ(qus?._id))

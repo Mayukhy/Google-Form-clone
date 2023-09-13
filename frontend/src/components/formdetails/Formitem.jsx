@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch} from 'react-redux'
 import CircularProgress from '@mui/joy/CircularProgress';
 import {Button, Card, CardContent, TextField, CardMedia} from '@mui/material'
@@ -10,8 +10,9 @@ import { useNavigate } from 'react-router-dom';
 import Mcqdetails from './mcq/Mcqdetails';
 import axios from 'axios';
 
-
 export default function Formitem({userinfo,id,form}) {
+    const fieldRef = useRef()
+    const [reqfields,setReqfields] = useState(false)
     const baseURL = 'https://google-form-clonemayukh.onrender.com'
     const navigate = useNavigate()
     //for storing the mcq response
@@ -57,8 +58,35 @@ export default function Formitem({userinfo,id,form}) {
           setisloggedin(true)
         }
       }, 2000);
-      console.log(Math.floor(Math.random()*10))
 
+      if (reqfields) {
+        setTimeout(() => {
+            fieldRef?.current?.scrollIntoView( { behavior: "smooth" })
+        }, 100);
+       
+      }
+              // for preventing accidental reload
+              useEffect(()=>{
+                const unloadCallback = (event) => {      
+                    const e = event || window.event;
+                    //console.log(e)
+                   
+                    e.preventDefault();
+                    if (e) {
+                      e.returnValue = ''
+                    }
+                    return '';
+                   
+                      
+                };
+                
+                window.addEventListener("beforeunload", unloadCallback);
+                return () => {
+                  //cleanup function
+                  window.removeEventListener("beforeunload", unloadCallback);
+                }
+                
+              },[])
       const headerimage = [
         'https://storage.googleapis.com/gweb-uniblog-publish-prod/images/007-BTS-Assignments-Header-FM.width-1300.png',
         'https://wpimg.pixelied.com/blog/wp-content/uploads/2021/08/30114524/Google-Form-Header-Image-Size-Featured-Image.png',
@@ -88,7 +116,7 @@ export default function Formitem({userinfo,id,form}) {
 <img className=' object-cover w-full md:h-[200px] lg:h-[300px] h-[150px]' src={banner} alt="" />
         
         </Card>
-       
+
 { allreadyResponed !== qlength && qlength >0  && <Card className='border-t-[11px] border-t-[#8f38ba] transition-all duration-200 hover:scale-105 cursor-pointer' sx={{width:{lg:'700px',md:'600px',sm:'500px',xs:'100%'},py:2,transition:'all 0.3s',borderRadius:'10px'}}>
         <CardContent>
             <p className=' text-4xl font-medium'>
@@ -103,6 +131,8 @@ export default function Formitem({userinfo,id,form}) {
             </p>
         </CardContent>
         </Card>}
+
+        {reqfields && <Alert ref={fieldRef} className=' mx-auto flex justify-center items-center' sx={{ width: { lg: '700px', md: '600px', sm: '500px', xs: '100%' },mb:3, background:'#fab79b' }} severity="error">Fill The required Fields first</Alert>}
       
     <form onSubmit={submitform} className=' flex flex-col gap-5 w-full items-center justify-center ' action="">
         {/* for when mcqs are present in the form */}
@@ -336,7 +366,7 @@ export default function Formitem({userinfo,id,form}) {
 
      { qlength !==0 &&
       <div className='flex flex-col gap-5 w-full items-center justify-center' >  
-        { allreadyResponed !== qlength  ? <Mcqdetails radioquestions={radioquestions} setRadioquestions={setRadioquestions} id={id}/>
+        { allreadyResponed !== qlength  ? <Mcqdetails reqfields={reqfields} setReqfields={setReqfields} fieldRef={fieldRef} radioquestions={radioquestions} resdata={resdata} setRadioquestions={setRadioquestions} form={form} id={id}/>
        :  <Card className='border-t-[11px] mt-10 border-t-[#8f38ba] h-[200px] transition-all duration-200 hover:scale-105 cursor-pointer' sx={{width:{lg:'700px',md:'600px',sm:'500px',xs:'100%'},py:2,transition:'all 0.3s',borderRadius:'10px'}}>
        <CardContent className=' flex flex-col gap-5'>
            <p className=' text-4xl font-medium'>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -10,10 +10,11 @@ import axios from 'axios';
 import Alert from '@mui/material/Alert';
 import CircularProgress from '@mui/joy/CircularProgress';
 
-export default function SingleMcq({qus,idx,id,setMcqresponse}) {
-   
+export default function SingleMcq({qus,idx,id,setMcqresponse,resdata:{name,address,q3,q4,q5,fileQ,link},form,reqfields,setReqfields}) {
   const baseURL = 'https://google-form-clonemayukh.onrender.com'
   const[mcqdata,setMcqdata] = useState([])
+  console.log('The form is',form)
+  console.log('The res is',name,address,q3)
     const userinfo =localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear()
     const [isloading,setIsloading] = useState(false)
     const [mcqRes,setMcqres] = useState({
@@ -38,6 +39,7 @@ export default function SingleMcq({qus,idx,id,setMcqresponse}) {
     }
     fetchRes()
     },[])
+    
     const [isLoggedin,setIsloggedin] = useState(false)
     const [field,setField] = useState(false)
     const alreadyanswered = (mcqdata?.filter((ans)=>ans?.userId ===userinfo?.sub && ans?.questionText ===mcqRes?.questionText)).length
@@ -50,12 +52,17 @@ export default function SingleMcq({qus,idx,id,setMcqresponse}) {
           setMcqresponse(data)
         })
         }
-        if (alreadyanswered ===0 && mcqRes?.opAns && !issaved && userinfo) {
-          creatans() 
-          setIssaved(true)
+        if (alreadyanswered ===0 && mcqRes?.opAns && !issaved && userinfo && (form?.name && !form?.address && !form?.q3 && !form?.q4 && name) || ( form?.name && form?.address && !form?.q3 && !form?.q4 && name && address) || (form?.name && form?.address && form?.q3 && !form?.q4 && name && address && q3) || (form?.name && form?.address && form?.q3 && form?.q4 && !form?.link && !form?.fileQ && name && address && q3 && q4) || (form?.name && form?.address && form?.q3 && form?.q4 && form?.link && !form?.fileQ && name && address && q3 && q4 && link) || (form?.name && form?.address && form?.q3 && form?.q4 && form?.link && form?.fileQ && name && address && q3 && q4 && link && fileQ)  ) {
+         
+            creatans() 
+            setIssaved(true) 
+      
         }
         else if(!userinfo){
           setIsloggedin(true)
+        }
+        else if((form?.name && name ==='') || (form?.address && address ==='') || (form?.q3 && q3 ==='') || (form?.q4 && q4 ==='')|| (form?.q5 && q5 ==='') || (form?.fileQ && fileQ==='') || (form?.link && link ==='')  && !mcqRes?.opAns ){
+        setReqfields(true)
         }
         else if(alreadyanswered){
          setAnsed(true)
@@ -81,8 +88,14 @@ export default function SingleMcq({qus,idx,id,setMcqresponse}) {
         }
       }, 2000);
 
+      setTimeout(() => {
+        if (reqfields) {
+        setReqfields(false)
+        }
+      }, 5000);
+
   return (
-    <div className='flex flex-col gap-5 w-full items-center justify-center'>
+    <div  className='flex flex-col gap-5 w-full items-center justify-center'>
        {field && <Alert className=' mx-auto flex justify-center items-center' sx={{ width: { lg: '700px', md: '600px', sm: '500px', xs: '100%' },mb:3 }} severity="warning">Answer First</Alert>}
        {ansed && <Alert className=' mx-auto flex justify-center items-center' sx={{ width: { lg: '700px', md: '600px', sm: '500px', xs: '100%' },mb:3 }} severity="success">Already Saved</Alert>}
        {isloading && <Box sx={{ display: 'flex', gap: 2, justifyContent:'center',mt:10, alignItems: 'center', flexWrap: 'wrap' }}><CircularProgress size="lg" /> </Box>}
@@ -114,7 +127,7 @@ export default function SingleMcq({qus,idx,id,setMcqresponse}) {
           </FormControl>
 
         </CardContent>
-        <Button onClick={saveAns}  endIcon={<BookmarkBorderIcon/>} sx={{display:'flex',gap:1,ml:2,background:alreadyanswered?'#b3adb8':'#8f44b3' }} variant="contained" color="primary">
+        <Button onClick={saveAns} disabled={issaved?true:false} endIcon={<BookmarkBorderIcon/>} sx={{display:'flex',gap:1,ml:2,background:alreadyanswered?'#b3adb8':'#8f44b3' }} variant="contained" color="primary">
               {!issaved && alreadyanswered === 0 ? 'Save':'Saved'}
             </Button>
       </Card>

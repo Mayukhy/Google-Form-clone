@@ -12,9 +12,9 @@ import McqForm from './components/McqForm';
 function App() {
   //google auth users
 const userinfo =localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear()
-const [formdata,setFormdata] = useState({title:'',name:'',address:'',q3:'',q4:'',q5:'',fileQ:'',selectedFile:'',username:`${userinfo?.name}`,userId:`${userinfo?.sub}`})
+const [formdata,setFormdata] = useState({title:'',name:'',address:'',q3:'',q4:'',q5:'',fileQ:'',filepdf:'',selectedFile:'',username:`${userinfo?.name}`,userId:`${userinfo?.sub}`})
 const [currentId,setCurrentId]=useState()
-const [documentarray,setDocumentarray] = useState([{title:'',name:'',address:''}])
+const [documentarray,setDocumentarray] = useState([{title:'',name:'',address:'',q3:'',q4:'',q5:'',fileQ:'',selectedFile:''}])
 const [searchturm,setSearchterm] = useState(null)
   return (
     <>

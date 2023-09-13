@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 // import { deleteQ } from '../../redux/action/multiQ';
 import axios from 'axios';
 import SingleMcq from './SingleMcq';
-export default function Mcqdetails({id,radioquestions,setRadioquestions}) {
+export default function Mcqdetails({id,radioquestions,setRadioquestions,form,resdata,fieldRef,reqfields,setReqfields}) {
     const [mcqresponse,setMcqresponse] = useState(null)
 
     useEffect(()=>{
@@ -23,7 +23,7 @@ export default function Mcqdetails({id,radioquestions,setRadioquestions}) {
   return (
     <div className='flex flex-col gap-5 w-full items-center justify-center'>
                     { radioquestions?.length > 0  && filteredq?.map((qus,idx)=>(
-                      <SingleMcq setMcqresponse={setMcqresponse} id={id} qus={qus} idx={idx}/>
+                      <SingleMcq reqfields={reqfields} setReqfields={setReqfields} fieldRef={fieldRef} setMcqresponse={setMcqresponse} id={id} qus={qus} form={form} resdata={resdata} idx={idx}/>
 
         ))}
     </div>

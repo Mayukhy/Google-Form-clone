@@ -62,7 +62,7 @@ export default function Form({ formdata, setFormdata, currentId, setCurrentId, u
         navigate('/')
       }
       else {
-        dispatch(creatForm(formdata))
+        dispatch(creatForm({title:`${formdata?.title?formdata?.title:''}`,name:`${formdata?.name?formdata?.name:''}`,address:`${formdata?.address?formdata?.address:''}`,q3:`${formdata?.q3?formdata?.q3:''}`,q4:`${formdata?.q4?formdata?.q4:''}`,q5:`${formdata?.q5?formdata?.q5:''}`,fileQ:`${formdata?.fileQ? formdata?.fileQ:''}`,filepdf:`${formdata?.filepdf? formdata?.filepdf:''}`,selectedFile:`${formdata?.selectedFile? formdata?.selectedFile:''}`,username:`${userinfo?.name}`,userId:`${userinfo?.sub}`}))
         navigate('/')
       }
     }
@@ -83,6 +83,7 @@ export default function Form({ formdata, setFormdata, currentId, setCurrentId, u
         dispatch(creatForm(formdata))
         setOpen(true);
         setIssaved(true)
+        setFormdata({title:'',name:'',address:'',q3:'',q4:'',q5:'',fileQ:'',link:''})
       }
     }
 
