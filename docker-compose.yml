@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  gfrom-backend:
+    container_name: google-form-api  # Explicit container name
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    # ports:
+    #   - "5000:5000"
+    environment:
+      - NODE_ENV=production
+      - CONNECTION_URL=mongodb+srv://dasmayukh2000:936eIP2SWazsX5Pp@cluster0.93aiybh.mongodb.net/?retryWrites=true&w=majority
+    depends_on:
+      - mongodb
+    networks:
+      - app-network
+
+  gform-frontend:
+    container_name: google-form-ui   # Explicit container name
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    # ports:
+    #   - "3000:5173"
+    depends_on:
+      - gfrom-backend  # Keep service name reference
+    networks:
+      - app-network
+
+  mongodb:
+    image: mongo
+    container_name: google-form-mongo
+    # ports:
+    #   - "6000:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=test
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - app-network
+
+volumes:
+  mongodb_data:
+
+networks:
+  app-network:
+    driver: bridge
+
+
+
+  
