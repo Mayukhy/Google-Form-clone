@@ -107,6 +107,8 @@ services:
     environment:
       - NODE_ENV=production
       - CONNECTION_URL=mongodb+srv://dasmayukh2000:936eIP2SWazsX5Pp@cluster0.93aiybh.mongodb.net/?retryWrites=true&w=majority
+      # Note: Replace the above connection string with your own MongoDB connection URL
+      # For production, use environment variables instead of hardcoding credentials
     depends_on:
       - mongodb
     networks:
@@ -237,8 +239,8 @@ npm run dev
 ```
 
 ## Notes
-1. If the application is launched first time or in an interval of maximum 30 minutes then it take some time (max 30 sec) to load the contents, so please keep patience.
-2. When the form is shared to a specific email of a specific user then the user should check the mail spam folder because it may sometimes the message can be stored in the spam folder.
+1. If the application is launched for the first time or after an interval of maximum 30 minutes, it takes some time (max 30 sec) to load the contents, so please be patient.
+2. When the form is shared to a specific email of a specific user, the user should check their spam folder because sometimes the message can be stored in the spam folder.
 3. Make sure Docker daemon is running before executing any Docker commands.
 4. The MongoDB service uses a named volume to persist data across container restarts.
 
