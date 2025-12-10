@@ -6,8 +6,8 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    # ports:
-    #   - "5000:5000"
+    ports:
+      - "5000:5000"
     environment:
       - NODE_ENV=production
       - CONNECTION_URL=mongodb+srv://dasmayukh2000:936eIP2SWazsX5Pp@cluster0.93aiybh.mongodb.net/?retryWrites=true&w=majority
@@ -21,8 +21,8 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    # ports:
-    #   - "3000:5173"
+    ports:
+      - "3000:5173"
     depends_on:
       - gfrom-backend  # Keep service name reference
     networks:
@@ -31,8 +31,8 @@ services:
   mongodb:
     image: mongo
     container_name: google-form-mongo
-    # ports:
-    #   - "6000:27017"
+    ports:
+      - "6000:27017"
     environment:
       - MONGO_INITDB_DATABASE=test
     volumes:
