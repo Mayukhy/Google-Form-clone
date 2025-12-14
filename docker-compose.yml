@@ -10,7 +10,7 @@ services:
       - NODE_ENV=production
       - CONNECTION_URL=mongodb+srv://dasmayukh2000:936eIP2SWazsX5Pp@cluster0.93aiybh.mongodb.net/?retryWrites=true&w=majority
     depends_on:
-      - mongodb
+      - gform-mongodb
     networks:
       - app-network
 
@@ -24,9 +24,9 @@ services:
     networks:
       - app-network
 
-  mongodb:
-    image: mongo
+  gform-mongodb:
     container_name: google-form-mongo
+    image: mayukhdev2000/gfrom-mongodb:latest
     ports:
       - "6000:27017"
     environment:
