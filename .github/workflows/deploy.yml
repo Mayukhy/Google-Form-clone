@@ -9,6 +9,7 @@ env:
   REGISTRY: docker.io
   BACKEND_IMAGE_NAME: gfrom-backend
   FRONTEND_IMAGE_NAME: gfrom-frontend
+  MONGODB_IMAGE_NAME: gfrom-mongodb
 
 jobs:
   build-and-push:
@@ -51,6 +52,36 @@ jobs:
           type=sha,prefix=main-{{date 'YYYYMMDD'}}-
           type=raw,value=latest,enable={{is_default_branch}}
     
+    - name: Extract metadata for mongodb
+      id: meta-mongodb
+      uses: docker/metadata-action@v5
+      with:
+        images: ${{ env.REGISTRY }}/${{ secrets.DOCKERHUB_USERNAME }}/${{ env.MONGODB_IMAGE_NAME }}
+        tags: |
+          type=ref,event=branch
+          type=ref,event=pr
+          type=sha,prefix=main-{{date 'YYYYMMDD'}}-
+          type=raw,value=latest,enable={{is_default_branch}}
+    
+    - name: Create MongoDB Dockerfile
+      run: |
+        mkdir -p mongodb
+        cat > mongodb/Dockerfile << 'EOF'
+        FROM mongo:latest
+        
+        # Copy any custom configuration if needed
+        # COPY mongod.conf /etc/mongod.conf
+        
+        # Set environment variables
+        ENV MONGO_INITDB_DATABASE=test
+        
+        # Expose MongoDB port
+        EXPOSE 27017
+        
+        # Use the default MongoDB entrypoint
+        CMD ["mongod"]
+        EOF
+    
     - name: Build and push backend Docker image
       uses: docker/build-push-action@v5
       with:
@@ -73,8 +104,20 @@ jobs:
         cache-from: type=gha
         cache-to: type=gha,mode=max
     
+    - name: Build and push MongoDB Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: ./mongodb
+        file: ./mongodb/Dockerfile
+        push: ${{ github.event_name != 'pull_request' }}
+        tags: ${{ steps.meta-mongodb.outputs.tags }}
+        labels: ${{ steps.meta-mongodb.outputs.labels }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+    
     - name: Image digest
       if: github.event_name != 'pull_request'
       run: |
         echo "Backend image digest: ${{ steps.meta-backend.outputs.digest }}"
         echo "Frontend image digest: ${{ steps.meta-frontend.outputs.digest }}"
+        echo "MongoDB image digest: ${{ steps.meta-mongodb.outputs.digest }}"

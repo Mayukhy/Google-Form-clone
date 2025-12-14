@@ -2,10 +2,8 @@ version: '3.8'
 
 services:
   gfrom-backend:
-    container_name: google-form-api  # Explicit container name
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
+    container_name: google-form-api
+    image: mayukhdev2000/gfrom-backend:latest  # Use pulled image instead of build
     ports:
       - "5000:5000"
     environment:
@@ -17,14 +15,12 @@ services:
       - app-network
 
   gform-frontend:
-    container_name: google-form-ui   # Explicit container name
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
+    container_name: google-form-ui
+    image: mayukhdev2000/gfrom-frontend:latest  # Use pulled image instead of build
     ports:
       - "3000:5173"
     depends_on:
-      - gfrom-backend  # Keep service name reference
+      - gfrom-backend
     networks:
       - app-network
 
@@ -46,7 +42,3 @@ volumes:
 networks:
   app-network:
     driver: bridge
-
-
-
-  
