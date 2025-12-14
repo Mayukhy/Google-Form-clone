@@ -18,6 +18,22 @@ https://www.loom.com/share/b851ffbf8dca44f39940c7f9cff01af2?sid=f9d37226-194a-49
 - **Backend**: Node.js, Express.js
 - **Database**: MongoDB
 - **Containerization**: Docker, Docker Compose
+- **CI/CD**: GitHub Actions, Docker Hub
+
+## CI/CD Pipeline
+
+This project includes an automated CI/CD pipeline that builds and deploys Docker images to Docker Hub. The pipeline automatically triggers on every push to the main/master branch.
+
+📖 **[View Complete CI/CD Pipeline Documentation](./CICD_PIPELINE.md)**
+
+### Quick Overview
+
+- **Automated Builds**: Docker images are automatically built for backend, frontend, and MongoDB
+- **Docker Hub Deployment**: Images are pushed to Docker Hub with intelligent tagging
+- **Caching**: Uses GitHub Actions cache for faster build times
+- **Security**: Uses Docker Hub access tokens for secure authentication
+
+For detailed information about the CI/CD pipeline, including setup instructions, workflow details, and troubleshooting, please refer to the [CI/CD Pipeline Documentation](./CICD_PIPELINE.md).
 
 ## Docker Setup
 
